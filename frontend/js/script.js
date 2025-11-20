@@ -176,7 +176,14 @@ function saveCart() {
 // CATEGORY BUTTONS
 // -------------------------------
 function renderCategories() {
+  // Find the FIRST div inside <header><nav>... so it works on Netlify too
   const navDiv = document.querySelector("header nav div");
+
+  if (!navDiv) {
+    console.warn("Category container not found.");
+    return; // Prevents script from stopping on Netlify
+  }
+
   const categories = ["all", ...new Set(products.map(p => p.category))];
 
   navDiv.innerHTML = "";
@@ -187,6 +194,7 @@ function renderCategories() {
     navDiv.appendChild(btn);
   });
 }
+
 
 // -------------------------------
 // CART TOGGLE BUTTON
